@@ -1,0 +1,55 @@
+var scene = new THREE.Scene(); 
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000); 
+
+var renderer = new THREE.WebGLRenderer(); 
+renderer.setSize(window.innerWidth, window.innerHeight); 
+document.body.appendChild(renderer.domElement); 
+
+
+loader = new THREE.JSONLoader(); 
+var mesh; 
+loader.load('Player_Starting-Gun.json', function (geometry, materials) { 
+	/* 
+	var material = new THREE.MeshLambertMaterial({ 
+	map: THREE.ImageUtils.loadTexture('Hanna.jpg'), 
+	colorAmbient: [0.480000026226044, 0.480000026226044, 0.480000026226044], 
+	colorDiffuse: [0.480000026226044, 0.480000026226044, 0.480000026226044], 
+	colorSpecular: [0.8999999761581421, 0.8999999761581421, 0.8999999761581421] 
+
+	color: 0xE21837 
+	}); 
+	*/
+
+	var material = new THREE.MeshBasicMaterial( { 
+		color: 0xE21837 
+		} 
+		); 
+	
+	mesh = new THREE.Mesh( 
+		geometry, 
+		material 
+		); 
+
+	mesh.receiveShadow = true; 
+	mesh.castShadow = true; 
+	//mesh.rotation.y = -Math.PI/5; 
+
+	scene.add(mesh); 
+	render(); 
+	}); 
+
+
+
+camera.position.x = 1;
+camera.position.y = 4;
+camera.position.z = 5; 
+
+function render() { 
+requestAnimationFrame(render); 
+//mesh.rotation.x += 0.01; 
+//mesh.rotation.y += 0.01;
+//mesh.rotation.z += 0.01;
+
+renderer.render(scene, camera); 
+	} 
+	render(); 
